@@ -13,4 +13,18 @@ namespace IwReload\ResourceTicker;
  */
 class ResourceTicker {
   
+  /**
+   * @var Resource[]
+   */
+  private $resources = [];
+  
+  public function addResource( Resource $r ) {
+    $this->resources[] = $r;
+  }
+  
+  public function advanceTicks( $nTicks ) {
+    foreach($this->resources as $r) {
+      $r->modifyStock( $r->productionPerTick * $nTicks );
+    }
+  }
 }
