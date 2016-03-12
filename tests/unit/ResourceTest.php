@@ -107,16 +107,16 @@ class ResourceTest extends \Codeception\TestCase\Test
       verify($r0->getStock())->same(PHP_INT_MAX);
     });
     
-    $this->specify('stock is properly modified', function($diff,$expected) {
+    $this->specify('stock is properly modified', function($initial,$diff,$expected) {
       $r = new Resource(0);
-      $r->setStock(5);
+      $r->setStock($initial);
       $r->modifyStock($diff);
       verify($r->getStock())->same($expected);
     }, [
       'examples' => [
-        [-5, 0],
-        [0, 5],
-        [5, 10],
+        [5, -5, 0],
+        [5, 0, 5],
+        [5, 5, 10],
       ],
     ]);
   }
